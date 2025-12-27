@@ -1,0 +1,93 @@
+name: Integration Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master]
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: smallbiznis_auth
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d smallbiznis_auth"
+          --health-interval=3s
+          --health-timeout=3s
+          --health-retries=10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+
+      - name: Cache Go modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+
+      - name: Wait for Postgres (built-in health)
+        run: psql -h localhost -U postgres -d smallbiznis_auth -c "SELECT 1;" || exit 1
+        env:
+          PGPASSWORD: postgres
+
+      - name: Run SQL migrations (super fast)
+        env:
+          PGPASSWORD: postgres
+        run: |
+          cat sql/migrations/*.sql | psql -h localhost -U postgres -d smallbiznis_auth
+
+      - name: Run integration tests
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/smallbiznis_auth?sslmode=disable
+        run: go test -v -count=1 -tags=integration ./...
+
+      - name: Send Slack Notification
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          channel-id: C012345   # Channel ID, bukan nama
+          payload: |
+            {
+              "text": "Integration Test Result",
+              "attachments": [
+                {
+                  "color": "${{ job.status == 'success' && '#2ECC71' || '#E74C3C' }}",
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "Integration Tests • ${{ job.status }}"
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "${{ job.status == 'success' && ':white_check_mark: Passed' || ':x: Failed' }}"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+

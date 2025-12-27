@@ -1,0 +1,91 @@
+name: Benchmark
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  benchmark:
+    name: Run Go Benchmark + Threshold Check
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout PR branch
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+
+      # ---- 1. RUN BENCHMARK ON MAIN (BASELINE) ----
+      - name: Checkout main (baseline)
+        run: |
+          git fetch origin main
+          git checkout main
+
+      - name: Run benchmark (baseline)
+        run: |
+          go test -bench=. -benchmem -run=^$ ./... | tee baseline.txt
+
+      # ---- 2. RUN BENCHMARK ON PR BRANCH ----
+      - name: Checkout PR branch again
+        run: |
+          git checkout ${{ github.head_ref }}
+
+      - name: Run benchmark (PR)
+        run: |
+          go test -bench=. -benchmem -run=^$ ./... | tee pr.txt
+
+      # ---- 3. COMPARE RESULTS ----
+      - name: Compare benchmarks
+        id: compare
+        run: |
+          echo "Threshold: 10% slowdown allowed"
+          echo "" > compare.txt
+          echo "## Benchmark Comparison" >> compare.txt
+          echo "Baseline (main):" >> compare.txt
+          cat baseline.txt >> compare.txt
+          echo "" >> compare.txt
+          echo "PR:" >> compare.txt
+          cat pr.txt >> compare.txt
+          echo "" >> compare.txt
+
+          # Parse both benchmark outputs
+          # Only extract lines that begin with Benchmark
+          BASE=$(grep "^Benchmark" baseline.txt | awk '{print $3}')
+          PR=$(grep "^Benchmark" pr.txt | awk '{print $3}')
+
+          # If no match → skip threshold
+          if [ -z "$BASE" ] || [ -z "$PR" ]; then
+            echo "Could not parse benchmark results — skipping threshold" >> compare.txt
+            exit 0
+          fi
+
+          # Compute slowdown
+          SLOWDOWN=$(awk -v base="$BASE" -v pr="$PR" 'BEGIN { print (pr - base) / base * 100 }')
+          echo "Slowdown: $SLOWDOWN%" >> compare.txt
+
+          # Threshold (10%)
+          MAX=10
+          if (( $(echo "$SLOWDOWN > $MAX" | bc -l) )); then
+            echo "❌ Benchmark regression detected: $SLOWDOWN% slower" >> compare.txt
+            echo "::set-output name=result::fail"
+            exit 1
+          else
+            echo "✅ Benchmark OK: slowdown $SLOWDOWN% (<= $MAX%)" >> compare.txt
+            echo "::set-output name=result::pass"
+          fi
+
+      # ---- 4. POST COMMENT TO PR ----
+      - name: Comment benchmark result to PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: benchmark-result
+          path: compare.txt

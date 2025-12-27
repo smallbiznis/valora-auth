@@ -1,0 +1,92 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run Semantic Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          semantic_version: 21
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ============================================
+      # AUTO BUILD + PUSH DOCKER IMAGE (GHCR)
+      # ============================================
+      - name: Build and push Docker image
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          VERSION=v${{ steps.semantic.outputs.new_release_version }}
+
+          echo "🔐 Logging into GHCR..."
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+          echo "🐳 Building Docker image..."
+          docker build -t ghcr.io/${{ github.repository }}:$VERSION .
+
+          echo "📦 Pushing image to GHCR..."
+          docker push ghcr.io/${{ github.repository }}:$VERSION
+
+      # ============================================
+      # SLACK NOTIFICATION
+      # ============================================
+      - name: Notify Slack
+        if: steps.semantic.outputs.new_release_published == 'true'
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "attachments": [
+                { "color": "#5B3CF6" }
+              ],
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "🚀 New Release: v${{ steps.semantic.outputs.new_release_version }}",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Repository:* `${{ github.repository }}`\n*Version:* `v${{ steps.semantic.outputs.new_release_version }}`\n\n${{ steps.semantic.outputs.new_release_notes }}"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": { "type": "plain_text", "text": "View Release" },
+                      "url": "https://github.com/${{ github.repository }}/releases/tag/v${{ steps.semantic.outputs.new_release_version }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

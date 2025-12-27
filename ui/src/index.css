@@ -1,0 +1,24 @@
+@import "../design-tokens.css";
+@config "../tailwind.config.ts";
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  *,
+  ::before,
+  ::after {
+    @apply border-border-subtle;
+  }
+
+  body {
+    @apply m-0 min-h-screen bg-bg-primary text-text-primary antialiased;
+    font-family: var(--font-sans);
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+}

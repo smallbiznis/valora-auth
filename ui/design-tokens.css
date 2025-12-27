@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+:root,
+.dark {
+  color-scheme: dark;
+
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo",
+    monospace;
+
+  --bg-primary: 240 10% 4%;
+  --bg-surface: 240 9% 10%;
+  --bg-surface-strong: 240 8% 14%;
+  --bg-subtle: 240 6% 18%;
+
+  --border-subtle: 240 6% 22%;
+  --border-strong: 240 6% 30%;
+
+  --text-primary: 0 0% 98%;
+  --text-secondary: 240 5% 82%;
+  --text-muted: 240 4% 64%;
+  --text-inverse: 240 5% 12%;
+
+  --accent-primary: 151 63% 45%;
+  --accent-glow: 152 55% 55%;
+
+  --status-success: 151 55% 45%;
+  --status-warning: 38 60% 55%;
+  --status-error: 0 62% 52%;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 28px;
+  --radius-pill: 999px;
+
+  --shadow-xs: 0 1px 2px 0 hsl(240 10% 4% / 0.6);
+  --shadow-sm: 0 8px 20px -14px hsl(240 10% 4% / 0.7);
+  --shadow-md: 0 16px 36px -20px hsl(240 10% 4% / 0.75);
+  --shadow-glow: 0 0 40px hsl(151 63% 45% / 0.18);
+
+  --blur-xs: 6px;
+  --blur-sm: 12px;
+  --blur-md: 20px;
+  --blur-lg: 32px;
+
+  --z-base: 0;
+  --z-header: 10;
+  --z-overlay: 20;
+  --z-modal: 40;
+  --z-toast: 50;
+
+  --motion-fast: 150ms;
+  --motion-base: 220ms;
+  --motion-slow: 320ms;
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
