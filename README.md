@@ -1,4 +1,4 @@
-# smallbiznis-auth
+# valora-auth
 
 Enterprise-grade, multi-org OAuth2/OIDC server implemented in Go. The service mirrors Auth0-style capabilities (org discovery, OAuth flows, password/OTP logins, JWKS exposure) while remaining lightweight and self-hostable. It embraces Clean Architecture: HTTP transport is isolated from domain services and repositories, and dependencies are wired via Uber Fx.
 
@@ -81,7 +81,7 @@ Configuration is environment-driven (see `internal/config/config.go`):
 ## Running Locally
 
 ```bash
-export DATABASE_URL="postgres://user:pass@localhost:5432/smallbiznis?sslmode=disable"
+export DATABASE_URL="postgres://user:pass@localhost:5432/postgres?sslmode=disable"
 export REDIS_ADDR="127.0.0.1:6379"
 export APP_ENV=development
 export HTTP_PORT=8080
@@ -98,10 +98,10 @@ Uber Fx wires the dependencies, opens the pgx pool, and starts the Gin server wi
 A multi-stage `Dockerfile` is provided for minimal images:
 
 ```bash
-docker build -t smallbiznis-auth .
+docker build -t valora-auth .
 docker run --rm -p 8080:8080 \
-  -e DATABASE_URL=postgres://user:pass@db:5432/smallbiznis?sslmode=disable \
-  smallbiznis-auth
+  -e DATABASE_URL=postgres://user:pass@db:5432/postgres?sslmode=disable \
+  valora-auth
 ```
 
 ## CI / Workflows
@@ -137,7 +137,7 @@ Browser clients can enumerate and start external (Google/Microsoft/etc.) flows t
 |--------|------|-------------|
 | `GET` | `/auth/oauth/providers` | List enabled IdPs for the resolved org (name, icon, display name). |
 | `GET` | `/auth/oauth/start` | Generates state/nonce/PKCE verifier and returns the IdP authorization URL. |
-| `GET` | `/auth/oauth/callback` | Handles IdP redirects, validates state, issues SmallBiznis session cookies, then redirects to caller-provided URI. |
+| `GET` | `/auth/oauth/callback` | Handles IdP redirects, validates state, issues Valora session cookies, then redirects to caller-provided URI. |
 
 ### Token Utility APIs
 
@@ -248,4 +248,4 @@ Unit tests exist for org resolver and service components; extend coverage alongs
 
 ---
 
-This document should serve as the onboarding guide for engineers integrating or extending `smallbiznis-auth`. Contributions are welcome—please keep Clean Architecture boundaries and OAuth specs in mind.
+This document should serve as the onboarding guide for engineers integrating or extending `valora-auth`. Contributions are welcome—please keep Clean Architecture boundaries and OAuth specs in mind.
