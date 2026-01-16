@@ -1,4 +1,4 @@
-# railzway-auth
+# valora-auth
 
 Enterprise-grade, multi-org OAuth2/OIDC server implemented in Go. The service mirrors Auth0-style capabilities (org discovery, OAuth flows, password/OTP logins, JWKS exposure) while remaining lightweight and self-hostable. It embraces Clean Architecture: HTTP transport is isolated from domain services and repositories, and dependencies are wired via Uber Fx.
 
