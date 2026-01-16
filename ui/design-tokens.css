@@ -1,50 +1,72 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 :root,
-.dark {
-  color-scheme: dark;
+.light {
+  color-scheme: light;
 
   --font-sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo",
     monospace;
 
-  --bg-primary: 240 10% 4%;
-  --bg-surface: 240 9% 10%;
-  --bg-surface-strong: 240 8% 14%;
-  --bg-subtle: 240 6% 18%;
+  /* Primary Light Backgrounds */
+  --bg-primary: 0 0% 100%;
+  /* Pure White */
+  --bg-surface: 210 40% 98%;
+  /* Very light slate */
+  --bg-surface-strong: 210 40% 96.1%;
+  /* Slate-50 */
+  --bg-subtle: 210 40% 93%;
+  /* Slate-100 */
 
-  --border-subtle: 240 6% 22%;
-  --border-strong: 240 6% 30%;
+  /* Borders: Delicate and crisp for dashboard feel */
+  --border-subtle: 214 32% 91%;
+  /* Slate-200 */
+  --border-strong: 214 32% 85%;
+  /* Slate-300 */
 
-  --text-primary: 0 0% 98%;
-  --text-secondary: 240 5% 82%;
-  --text-muted: 240 4% 64%;
-  --text-inverse: 240 5% 12%;
+  /* Text: High Contrast Slate */
+  --text-primary: 222 47% 11%;
+  /* Slate-900 */
+  --text-secondary: 215 25% 27%;
+  /* Slate-700 */
+  --text-muted: 215 16% 47%;
+  /* Slate-500 */
+  --text-inverse: 0 0% 100%;
+  /* White */
 
-  --accent-primary: 151 63% 45%;
-  --accent-glow: 152 55% 55%;
+  /* Accent: Indigo/Royal Blue */
+  --accent-primary: 243 75% 59%;
+  /* Indigo-600 */
+  --accent-glow: 243 100% 75%;
+  /* Indigo-300 */
 
+  /* Status Colors */
   --status-success: 151 55% 45%;
-  --status-warning: 38 60% 55%;
-  --status-error: 0 62% 52%;
+  /* Emerald-600 */
+  --status-warning: 38 92% 50%;
+  /* Amber-500 */
+  --status-error: 0 84% 60%;
+  /* Red-500 */
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-2xl: 28px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
   --radius-pill: 999px;
 
-  --shadow-xs: 0 1px 2px 0 hsl(240 10% 4% / 0.6);
-  --shadow-sm: 0 8px 20px -14px hsl(240 10% 4% / 0.7);
-  --shadow-md: 0 16px 36px -20px hsl(240 10% 4% / 0.75);
-  --shadow-glow: 0 0 40px hsl(151 63% 45% / 0.18);
+  /* Clean, crisp shadows */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 20px hsl(243 75% 59% / 0.15);
+  /* Soft indigo glow */
 
-  --blur-xs: 6px;
-  --blur-sm: 12px;
-  --blur-md: 20px;
-  --blur-lg: 32px;
+  --blur-xs: 4px;
+  --blur-sm: 8px;
+  --blur-md: 12px;
+  --blur-lg: 16px;
 
   --z-base: 0;
   --z-header: 10;
@@ -53,8 +75,8 @@
   --z-toast: 50;
 
   --motion-fast: 150ms;
-  --motion-base: 220ms;
-  --motion-slow: 320ms;
+  --motion-base: 200ms;
+  --motion-slow: 300ms;
   --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --motion-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 }

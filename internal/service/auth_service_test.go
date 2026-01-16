@@ -10,12 +10,12 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
-	"github.com/smallbiznis/valora-auth/internal/config"
-	"github.com/smallbiznis/valora-auth/internal/domain"
-	"github.com/smallbiznis/valora-auth/internal/jwt"
-	"github.com/smallbiznis/valora-auth/internal/org"
-	"github.com/smallbiznis/valora-auth/internal/password"
-	"github.com/smallbiznis/valora-auth/internal/service"
+	"github.com/smallbiznis/railzway-auth/internal/config"
+	"github.com/smallbiznis/railzway-auth/internal/domain"
+	"github.com/smallbiznis/railzway-auth/internal/jwt"
+	"github.com/smallbiznis/railzway-auth/internal/org"
+	"github.com/smallbiznis/railzway-auth/internal/password"
+	"github.com/smallbiznis/railzway-auth/internal/service"
 )
 
 func TestPasswordGrantAndRefreshFlow(t *testing.T) {

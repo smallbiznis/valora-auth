@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/smallbiznis/valora-auth/internal/org"
+	"github.com/smallbiznis/railzway-auth/internal/org"
 )
 
 const (

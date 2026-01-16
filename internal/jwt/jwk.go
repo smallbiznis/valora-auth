@@ -10,8 +10,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
 
-	"github.com/smallbiznis/valora-auth/internal/domain"
-	"github.com/smallbiznis/valora-auth/internal/repository"
+	"github.com/smallbiznis/railzway-auth/internal/domain"
+	"github.com/smallbiznis/railzway-auth/internal/repository"
 )
 
 // KeyManager ensures orgs always have an active signing key.

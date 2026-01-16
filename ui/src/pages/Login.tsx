@@ -73,7 +73,7 @@ export default function Login() {
           <div className="space-y-2">
             <h1 className="text-3xl font-semibold tracking-tight">Sign in</h1>
             <p className="text-sm text-text-muted">
-              Use your Valora Cloud credentials to continue.
+              Use your Railzway Cloud credentials to continue.
             </p>
           </div>
 

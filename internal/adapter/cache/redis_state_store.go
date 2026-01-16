@@ -8,8 +8,8 @@ import (
 
 	"github.com/redis/go-redis/v9"
 
-	"github.com/smallbiznis/valora-auth/internal/domain/oauth"
-	"github.com/smallbiznis/valora-auth/internal/repository"
+	"github.com/smallbiznis/railzway-auth/internal/domain/oauth"
+	"github.com/smallbiznis/railzway-auth/internal/repository"
 )
 
 // RedisStateStore implements OAuthStateStore backed by Redis.

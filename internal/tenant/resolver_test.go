@@ -1,4 +1,4 @@
-package org_test
+package tenant_test
 
 import (
 	"context"
@@ -7,17 +7,17 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/smallbiznis/railzway-auth/internal/domain"
-	"github.com/smallbiznis/railzway-auth/internal/org"
+	"github.com/smallbiznis/railzway-auth/internal/tenant"
 )
 
 func TestResolverResolve(t *testing.T) {
 	repo := &mockOrgRepo{}
-	resolver := org.NewResolver(repo)
+	resolver := tenant.NewResolver(repo)
 
 	ctx, err := resolver.Resolve(context.Background(), "tenant.smallbiznis.test")
 	require.NoError(t, err)
-	require.Equal(t, int64(1), ctx.Org.ID)
-	require.Equal(t, "SmallBiznis", ctx.Org.Name)
+	require.Equal(t, int64(1), ctx.Tenant.ID)
+	require.Equal(t, "SmallBiznis", ctx.Tenant.Name)
 	// require.Equal(t, "client", ctx.ClientID)
 	require.Len(t, ctx.AuthProviders, 1)
 	require.Equal(t, 8, ctx.PasswordConfig.MinLength)
@@ -25,11 +25,11 @@ func TestResolverResolve(t *testing.T) {
 
 func TestResolverResolveBySlug(t *testing.T) {
 	repo := &mockOrgRepo{}
-	resolver := org.NewResolver(repo)
+	resolver := tenant.NewResolver(repo)
 
 	ctx, err := resolver.ResolveBySlug(context.Background(), "smallbiznis")
 	require.NoError(t, err)
-	require.Equal(t, int64(1), ctx.Org.ID)
+	require.Equal(t, int64(1), ctx.Tenant.ID)
 	require.Equal(t, "primary.smallbiznis.test", ctx.Domain.Host)
 }
 

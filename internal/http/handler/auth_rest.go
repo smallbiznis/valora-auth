@@ -7,8 +7,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/smallbiznis/valora-auth/internal/http/middleware"
-	"github.com/smallbiznis/valora-auth/internal/service"
+	"github.com/smallbiznis/railzway-auth/internal/http/middleware"
+	"github.com/smallbiznis/railzway-auth/internal/service"
 )
 
 func (h *AuthHandler) PasswordLogin(c *gin.Context) {

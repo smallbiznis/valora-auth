@@ -14,7 +14,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 
-	"github.com/smallbiznis/valora-auth/internal/config"
+	"github.com/smallbiznis/railzway-auth/internal/config"
 )
 
 // Provider wires OpenTelemetry tracing with lifecycle support.
@@ -26,9 +26,9 @@ type Provider struct {
 // Tracer exposes the configured tracer provider, falling back to noop if disabled.
 func (p *Provider) Tracer() trace.Tracer {
 	if p == nil || p.tracerProvider == nil {
-		return otel.Tracer("github.com/smallbiznis/valora-auth")
+		return otel.Tracer("github.com/smallbiznis/railzway-auth")
 	}
-	return p.tracerProvider.Tracer("github.com/smallbiznis/valora-auth")
+	return p.tracerProvider.Tracer("github.com/smallbiznis/railzway-auth")
 }
 
 // Shutdown flushes exporters.

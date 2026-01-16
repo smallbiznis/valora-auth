@@ -15,12 +15,12 @@ import (
 	"github.com/jackc/pgx/v5"
 	"go.uber.org/zap"
 
-	oauthadapter "github.com/smallbiznis/valora-auth/internal/adapter/oauth"
-	"github.com/smallbiznis/valora-auth/internal/config"
-	domain "github.com/smallbiznis/valora-auth/internal/domain"
-	domainoauth "github.com/smallbiznis/valora-auth/internal/domain/oauth"
-	"github.com/smallbiznis/valora-auth/internal/jwt"
-	"github.com/smallbiznis/valora-auth/internal/repository"
+	oauthadapter "github.com/smallbiznis/railzway-auth/internal/adapter/oauth"
+	"github.com/smallbiznis/railzway-auth/internal/config"
+	domain "github.com/smallbiznis/railzway-auth/internal/domain"
+	domainoauth "github.com/smallbiznis/railzway-auth/internal/domain/oauth"
+	"github.com/smallbiznis/railzway-auth/internal/jwt"
+	"github.com/smallbiznis/railzway-auth/internal/repository"
 )
 
 // OAuthService defines OAuth/OIDC orchestration behaviors.

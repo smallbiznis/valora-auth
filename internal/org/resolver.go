@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/smallbiznis/valora-auth/internal/domain"
-	"github.com/smallbiznis/valora-auth/internal/repository"
+	"github.com/smallbiznis/railzway-auth/internal/domain"
+	"github.com/smallbiznis/railzway-auth/internal/repository"
 	"go.uber.org/zap"
 )
 

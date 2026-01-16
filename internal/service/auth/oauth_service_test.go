@@ -12,10 +12,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
-	"github.com/smallbiznis/valora-auth/internal/config"
-	domain "github.com/smallbiznis/valora-auth/internal/domain"
-	domainoauth "github.com/smallbiznis/valora-auth/internal/domain/oauth"
-	"github.com/smallbiznis/valora-auth/internal/jwt"
+	"github.com/smallbiznis/railzway-auth/internal/config"
+	domain "github.com/smallbiznis/railzway-auth/internal/domain"
+	domainoauth "github.com/smallbiznis/railzway-auth/internal/domain/oauth"
+	"github.com/smallbiznis/railzway-auth/internal/jwt"
 )
 
 func TestOAuthService_StartAuthorization(t *testing.T) {

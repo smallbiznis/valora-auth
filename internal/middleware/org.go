@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/smallbiznis/valora-auth/internal/org"
+	"github.com/smallbiznis/railzway-auth/internal/org"
 )
 
 const (
@@ -21,7 +21,7 @@ type orgContextKey struct{}
 // Org resolves the org from the Host header and stores it in Gin and request contexts.
 func Org(resolver *org.Resolver) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		orgSlug := strings.TrimSpace(c.Request.Header.Get("X-Org-ID"))
+		orgSlug := strings.TrimSpace(c.Request.Header.Get("Host"))
 		if orgSlug == "" {
 			orgSlug = strings.TrimSpace(c.Request.Header.Get("X-Tenant-ID"))
 		}

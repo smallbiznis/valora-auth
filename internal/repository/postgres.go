@@ -9,8 +9,8 @@ import (
 
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"github.com/smallbiznis/valora-auth/internal/domain"
-	"github.com/smallbiznis/valora-auth/sqlc"
+	"github.com/smallbiznis/railzway-auth/internal/domain"
+	"github.com/smallbiznis/railzway-auth/sqlc"
 )
 
 // Compile-time interface assertions.

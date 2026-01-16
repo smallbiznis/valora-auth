@@ -13,12 +13,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
 
-	"github.com/smallbiznis/valora-auth/internal/config"
-	"github.com/smallbiznis/valora-auth/internal/jwt"
-	"github.com/smallbiznis/valora-auth/internal/password"
-	"github.com/smallbiznis/valora-auth/internal/repository"
-	"github.com/smallbiznis/valora-auth/internal/service"
-	"github.com/smallbiznis/valora-auth/sqlc"
+	"github.com/smallbiznis/railzway-auth/internal/config"
+	"github.com/smallbiznis/railzway-auth/internal/jwt"
+	"github.com/smallbiznis/railzway-auth/internal/password"
+	"github.com/smallbiznis/railzway-auth/internal/repository"
+	"github.com/smallbiznis/railzway-auth/internal/service"
+	"github.com/smallbiznis/railzway-auth/sqlc"
 )
 
 func setupDB(t *testing.T) *pgxpool.Pool {

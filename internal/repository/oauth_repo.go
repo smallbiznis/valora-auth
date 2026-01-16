@@ -8,8 +8,8 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/smallbiznis/valora-auth/internal/domain/oauth"
-	"github.com/smallbiznis/valora-auth/sqlc"
+	"github.com/smallbiznis/railzway-auth/internal/domain/oauth"
+	"github.com/smallbiznis/railzway-auth/sqlc"
 )
 
 // OAuthProviderConfigRepo exposes CRUD operations for org IdP configs.
