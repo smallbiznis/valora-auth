@@ -14,11 +14,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
-	domainoauth "github.com/smallbiznis/valora-auth/internal/domain/oauth"
-	"github.com/smallbiznis/valora-auth/internal/http/middleware"
-	"github.com/smallbiznis/valora-auth/internal/org"
-	"github.com/smallbiznis/valora-auth/internal/service"
-	authsvc "github.com/smallbiznis/valora-auth/internal/service/auth"
+	domainoauth "github.com/smallbiznis/railzway-auth/internal/domain/oauth"
+	"github.com/smallbiznis/railzway-auth/internal/http/middleware"
+	"github.com/smallbiznis/railzway-auth/internal/org"
+	"github.com/smallbiznis/railzway-auth/internal/service"
+	authsvc "github.com/smallbiznis/railzway-auth/internal/service/auth"
 )
 
 // AuthHandler orchestrates OAuth endpoints.

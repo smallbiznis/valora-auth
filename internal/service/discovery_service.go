@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 
-	"github.com/smallbiznis/valora-auth/internal/org"
+	"github.com/smallbiznis/railzway-auth/internal/org"
 )
 
 // DiscoveryService builds responses for discovery endpoints.

@@ -6,6 +6,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 // Config contains runtime configuration values.
@@ -34,6 +36,8 @@ type Config struct {
 
 // Load reads configuration from environment variables with sane defaults.
 func Load() (Config, error) {
+	_ = godotenv.Load()
+
 	adminEmail := strings.TrimSpace(os.Getenv("ADMIN_EMAIL"))
 	if adminEmail == "" {
 		return Config{}, fmt.Errorf("ADMIN_EMAIL is required")

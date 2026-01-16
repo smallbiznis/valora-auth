@@ -9,11 +9,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 
-	"github.com/smallbiznis/valora-auth/internal/config"
-	"github.com/smallbiznis/valora-auth/internal/http/handler"
-	httpmiddleware "github.com/smallbiznis/valora-auth/internal/http/middleware"
-	"github.com/smallbiznis/valora-auth/internal/middleware"
-	"github.com/smallbiznis/valora-auth/internal/org"
+	"github.com/smallbiznis/railzway-auth/internal/config"
+	"github.com/smallbiznis/railzway-auth/internal/http/handler"
+	httpmiddleware "github.com/smallbiznis/railzway-auth/internal/http/middleware"
+	"github.com/smallbiznis/railzway-auth/internal/middleware"
+	"github.com/smallbiznis/railzway-auth/internal/org"
 )
 
 // NewRouter wires Gin routes and middleware.
@@ -49,8 +49,6 @@ func NewRouter(cfg config.Config, authHandler *handler.AuthHandler, authMiddlewa
 		authGroup.GET("/oauth/callback", authHandler.OAuthCallback)
 	}
 
-	// r.GET("/.well-known/org", authHandler.OrgDiscovery)
-	// r.GET("/.well-known/tenant", authHandler.OrgDiscovery)
 	r.GET("/.well-known/openid-configuration", authHandler.OpenIDConfig)
 	r.GET("/.well-known/jwks.json", authHandler.JWKS)
 

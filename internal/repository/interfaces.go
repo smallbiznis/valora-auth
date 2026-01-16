@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/smallbiznis/valora-auth/internal/domain"
+	"github.com/smallbiznis/railzway-auth/internal/domain"
 )
 
 // OrgRepository exposes org-level queries.

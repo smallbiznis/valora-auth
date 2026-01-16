@@ -10,10 +10,10 @@ import (
 	"github.com/jackc/pgx/v5"
 	"go.uber.org/zap"
 
-	"github.com/smallbiznis/valora-auth/internal/domain"
-	basemiddleware "github.com/smallbiznis/valora-auth/internal/middleware"
-	"github.com/smallbiznis/valora-auth/internal/org"
-	pw "github.com/smallbiznis/valora-auth/internal/password"
+	"github.com/smallbiznis/railzway-auth/internal/domain"
+	basemiddleware "github.com/smallbiznis/railzway-auth/internal/middleware"
+	"github.com/smallbiznis/railzway-auth/internal/org"
+	pw "github.com/smallbiznis/railzway-auth/internal/password"
 )
 
 const defaultRESTScope = "openid profile email offline_access"

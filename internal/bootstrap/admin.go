@@ -12,10 +12,10 @@ import (
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 
-	"github.com/smallbiznis/valora-auth/internal/config"
-	"github.com/smallbiznis/valora-auth/internal/domain"
-	"github.com/smallbiznis/valora-auth/internal/password"
-	"github.com/smallbiznis/valora-auth/internal/repository"
+	"github.com/smallbiznis/railzway-auth/internal/config"
+	"github.com/smallbiznis/railzway-auth/internal/domain"
+	"github.com/smallbiznis/railzway-auth/internal/password"
+	"github.com/smallbiznis/railzway-auth/internal/repository"
 )
 
 const adminRole = "admin"

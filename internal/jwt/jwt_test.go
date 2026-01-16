@@ -8,8 +8,8 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/stretchr/testify/require"
 
-	"github.com/smallbiznis/valora-auth/internal/domain"
-	customjwt "github.com/smallbiznis/valora-auth/internal/jwt"
+	"github.com/smallbiznis/railzway-auth/internal/domain"
+	customjwt "github.com/smallbiznis/railzway-auth/internal/jwt"
 )
 
 func TestGeneratorRoundTrip(t *testing.T) {

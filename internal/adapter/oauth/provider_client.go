@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	domainoauth "github.com/smallbiznis/valora-auth/internal/domain/oauth"
+	domainoauth "github.com/smallbiznis/railzway-auth/internal/domain/oauth"
 )
 
 // ProviderClient encapsulates outbound HTTP calls to external IdPs.

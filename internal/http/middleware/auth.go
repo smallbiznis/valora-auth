@@ -8,8 +8,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	gojwt "github.com/go-jose/go-jose/v4/jwt"
-	"github.com/smallbiznis/valora-auth/internal/jwt"
-	"github.com/smallbiznis/valora-auth/internal/service"
+	"github.com/smallbiznis/railzway-auth/internal/jwt"
+	"github.com/smallbiznis/railzway-auth/internal/service"
 )
 
 const (

@@ -8,7 +8,7 @@ import (
 	gojose "github.com/go-jose/go-jose/v4"
 	gojwt "github.com/go-jose/go-jose/v4/jwt"
 
-	"github.com/smallbiznis/valora-auth/internal/domain"
+	"github.com/smallbiznis/railzway-auth/internal/domain"
 )
 
 // Generator is responsible for signing and validating JWTs.

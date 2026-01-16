@@ -15,13 +15,13 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
-	"github.com/smallbiznis/valora-auth/internal/config"
-	"github.com/smallbiznis/valora-auth/internal/domain"
-	httpHandler "github.com/smallbiznis/valora-auth/internal/http/handler"
-	"github.com/smallbiznis/valora-auth/internal/jwt"
-	"github.com/smallbiznis/valora-auth/internal/org"
-	"github.com/smallbiznis/valora-auth/internal/repository"
-	"github.com/smallbiznis/valora-auth/internal/service"
+	"github.com/smallbiznis/railzway-auth/internal/config"
+	"github.com/smallbiznis/railzway-auth/internal/domain"
+	httpHandler "github.com/smallbiznis/railzway-auth/internal/http/handler"
+	"github.com/smallbiznis/railzway-auth/internal/jwt"
+	"github.com/smallbiznis/railzway-auth/internal/org"
+	"github.com/smallbiznis/railzway-auth/internal/repository"
+	"github.com/smallbiznis/railzway-auth/internal/service"
 )
 
 func TestJWKSHandler(t *testing.T) {

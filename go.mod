@@ -1,4 +1,4 @@
-module github.com/smallbiznis/valora-auth
+module github.com/smallbiznis/railzway-auth
 
 go 1.25.1
 
@@ -8,6 +8,7 @@ require (
 	github.com/go-jose/go-jose/v4 v4.1.3
 	github.com/google/uuid v1.6.0
 	github.com/jackc/pgx/v5 v5.7.6
+	github.com/joho/godotenv v1.5.1
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin v0.53.0

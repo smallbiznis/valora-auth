@@ -23,10 +23,29 @@ CREATE INDEX idx_timezones_country_code ON timezones(country_code);
 -- ==========================================================
 -- ENUM TYPES
 -- ==========================================================
-CREATE TYPE tenant_type AS ENUM ('platform', 'personal', 'company');
-CREATE TYPE domain_verification_method AS ENUM ('dns', 'file', 'manual');
-CREATE TYPE domain_certificate_status AS ENUM ('pending', 'active', 'failed');
-CREATE TYPE domain_provisioning_status AS ENUM ('pending', 'provisioning', 'active', 'error');
+DO $$ BEGIN
+    CREATE TYPE tenant_type AS ENUM ('platform', 'personal', 'company');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE domain_verification_method AS ENUM ('dns', 'file', 'manual');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE domain_certificate_status AS ENUM ('pending', 'active', 'failed');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE domain_provisioning_status AS ENUM ('pending', 'provisioning', 'active', 'error');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
 
 -- ==========================================================
 -- TENANTS
@@ -238,7 +257,11 @@ CREATE INDEX idx_branding_tenant_id ON brandings(tenant_id);
 -- ==========================================================
 -- OAUTH APPS
 -- ==========================================================
-CREATE TYPE oauth_app_type AS ENUM ('WEB', 'MOBILE', 'M2M');
+DO $$ BEGIN
+    CREATE TYPE oauth_app_type AS ENUM ('WEB', 'MOBILE', 'M2M');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
 
 CREATE TABLE oauth_apps (
     id BIGINT PRIMARY KEY,
@@ -439,29 +462,25 @@ ON CONFLICT DO NOTHING;
 
 INSERT INTO tenants (id, type, name, code, slug, country_code, timezone, is_default, status)
 VALUES
-    (1000, 'platform', 'SmallBiznis', 'SB', 'smallbiznis', 'SG', 'Asia/Singapore', TRUE, 'active'),
-    (2000, 'company', 'Kopi Kenangan', 'KK', 'kopikenangan', 'ID', 'Asia/Jakarta', FALSE, 'active')
+    (1000, 'platform', 'Railzway Cloud', 'SB', 'railzway', 'SG', 'Asia/Singapore', TRUE, 'active'),
 ON CONFLICT DO NOTHING;
 
 -- Branding defaults
 INSERT INTO brandings (tenant_id, primary_color, secondary_color, accent_color, background_color, text_color, dark_mode)
 VALUES
     (1000, '#5B3CF6', '#7E65FA', '#4A2ED9', '#111113', '#FFFFFF', TRUE),
-    (2000, '#6A4C93', '#9D5CFF', '#FFAA00', '#ffffff', '#222222', FALSE)
 ON CONFLICT DO NOTHING;
 
 -- Primary domains
 INSERT INTO domains (id, tenant_id, host, is_primary, verified)
 VALUES
-    (1001, 1000, 'smallbiznis.smallbiznisapp.io', TRUE, TRUE),
-    (2001, 2000, 'kopikenangan.smallbiznisapp.io', TRUE, TRUE)
+    (1001, 1000, 'accounts.railzway.com', TRUE, TRUE),
 ON CONFLICT DO NOTHING;
 
 -- OAuth apps & clients (Postman-friendly defaults)
 INSERT INTO oauth_apps (id, tenant_id, name, app_type, description, icon_url, is_active, is_first_party)
 VALUES
-    (1100, 1000, 'SmallBiznis Console', 'WEB', 'First-party admin console', NULL, TRUE, TRUE),
-    (2100, 2000, 'Kopi Kenangan POS', 'WEB', 'POS integration for Kopi Kenangan', NULL, TRUE, FALSE)
+    (1100, 1000, 'Railzway Console', 'WEB', 'First-party admin console', NULL, TRUE, TRUE)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO oauth_clients (id, tenant_id, app_id, client_id, client_secret, redirect_uris, grants, scopes, token_endpoint_auth_methods, require_consent)
@@ -478,24 +497,11 @@ VALUES
         ARRAY['client_secret_basic'],
         FALSE
     ),
-    (
-        2200,
-        2000,
-        2100,
-        'kopi-pos',
-        'kopi-pos-secret',
-        ARRAY['https://oauth.pstmn.io/v1/callback', 'http://localhost:4000/callback'],
-        ARRAY['authorization_code', 'refresh_token'],
-        ARRAY['openid', 'profile'],
-        ARRAY['client_secret_basic'],
-        FALSE
-    )
 ON CONFLICT DO NOTHING;
 
 INSERT INTO oauth_keys (id, tenant_id, kid, algorithm, secret, is_active)
 VALUES
     (1300, 1000, 'sb-key-1', 'HS256', encode(gen_random_bytes(32), 'hex'), TRUE),
-    (2300, 2000, 'kk-key-1', 'HS256', encode(gen_random_bytes(32), 'hex'), TRUE)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO oauth_idp_configs (
@@ -525,31 +531,6 @@ VALUES
         'http://localhost:9000/oauth2/jwks',
         ARRAY['openid','email','profile']
     ),
-    (
-        2400,
-        2000,
-        'oidc',
-        'dummy-client-id',
-        'dummy-client-secret',
-        'http://localhost:9000',
-        'http://localhost:9000/oauth2/authorize',
-        'http://localhost:9000/oauth2/token',
-        'http://localhost:9000/oauth2/userinfo',
-        'http://localhost:9000/oauth2/jwks',
-        ARRAY['openid','email','profile']
-    )
-ON CONFLICT DO NOTHING;
-
-INSERT INTO saml_idp_configs (id, tenant_id, idp_entity_id, sso_url, certificate, acs_url, sp_entity_id)
-VALUES
-    (
-        1500, 2000,
-        'kopi-kenangan-saml',
-        'https://sso.kopikenangan.com/login',
-        '-----BEGIN CERTIFICATE----- FAKE -----END CERTIFICATE-----',
-        'https://kopikenangan.smallbiznisapp.local/saml/acs',
-        'smallbiznis-sp'
-    )
 ON CONFLICT DO NOTHING;
 
 -- Default auth providers
@@ -557,18 +538,14 @@ INSERT INTO tenant_auth_providers (id, tenant_id, provider_type, is_active)
 VALUES
     (5001, 1000, 'password', TRUE),
     (5002, 1000, 'otp', TRUE),
-    (5003, 2000, 'password', TRUE),
-    (5004, 2000, 'otp', TRUE)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO password_configs (tenant_id, min_length, require_uppercase, require_number, require_symbol)
 VALUES
     (1000, 8, FALSE, TRUE, FALSE),
-    (2000, 8, TRUE, TRUE, FALSE)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO otp_configs (tenant_id, channel, provider, api_key, sender, template, expiry_seconds)
 VALUES
-    (1000, 'sms', 'debug', 'local-dev', 'SMALLBIZNIS', 'Your OTP is {{code}}', 300),
-    (2000, 'whatsapp', 'debug', 'local-dev', 'KOPIKENANGAN', 'OTP Anda: {{code}}', 300)
+    (1000, 'sms', 'debug', 'local-dev', 'Railzway', 'Your OTP is {{code}}', 300),
 ON CONFLICT DO NOTHING;
